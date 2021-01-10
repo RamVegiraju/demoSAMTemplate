@@ -11,10 +11,26 @@ Globals:
     Timeout: 3
 
 Resources:
+
+
+  ##################
+  #APIs
+  ###################
+
+  #ApiGatewayApi:
+   # Type: AWS::Serverless::Api
+   # Properties:
+    #  StageName: Prod
+    #  Cors: "'*'"
+
+
+  ##################
+  #Lambdas
+  ###################
   HelloWorldFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: hello_world/
+      CodeUri: lambda/
       Handler: app.lambda_handler
       Runtime: python3.8
       Events:
@@ -22,7 +38,14 @@ Resources:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /hello
-            Method: get
+            Method: post
+  
+  ComprehendFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: lambda/
+      Handler: demo.lambda_handler
+      Runtime: python3.8
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -37,3 +60,6 @@ Outputs:
   HelloWorldFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
     Value: !GetAtt HelloWorldFunctionRole.Arn
+  ComprehendFunction:
+    Description: "Comprehend Lambda Function ARN"
+    Value: !GetAtt ComprehendFunction.Arn
