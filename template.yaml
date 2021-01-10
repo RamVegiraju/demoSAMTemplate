@@ -6,12 +6,11 @@ Description: >
   Sample SAM Template for demo-app
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
-Globals:
-  Function:
-    Timeout: 3
+#Globals:
+ # Function:
+  #  Timeout: 3
 
 Resources:
-
 
   ##################
   #APIs
@@ -39,6 +38,7 @@ Resources:
           Properties:
             Path: /hello
             Method: post
+      Timeout: 30
   
   ComprehendFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -46,6 +46,7 @@ Resources:
       CodeUri: lambda/
       Handler: demo.lambda_handler
       Runtime: python3.8
+      Timeout: 30
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
